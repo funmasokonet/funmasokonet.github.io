@@ -1,0 +1,61 @@
+<div class="container">
+<div class="row">
+  {% if SITEIMAGE %}
+    <div class="col-sm-1">
+      <a href="{{ SITEURL }}/">
+        <img src={{ SITEURL }}{{ SITEIMAGE }} alt="{{ SITENAME }}">
+      </a>
+    </div>
+  {% endif %}
+  <div class="col-sm-{% if SITEIMAGE %}7{% else %}12{% endif %}">
+    <h1 class="title"><a href="{{ SITEURL }}/">{{ SITENAME }}</a></h1>
+    {% if SITESUBTITLE %}
+      <p class="text-muted">{{ SITESUBTITLE }}</p>
+    {% endif %}
+    {% if LINKS or (DISPLAY_PAGES_ON_MENU and pages) or ICONS %}
+      <ul class="list-inline">
+        {% for title, link in LINKS %}
+          <li class="list-inline-item"><a href="{{ link }}" target="_blank">{{ title }}</a></li>
+        {% endfor %}
+        {% if DISPLAY_PAGES_ON_MENU %}
+          {% for page in pages %}
+            {% if LINKS and loop.first %}
+              <li class="list-inline-item text-muted">|</li>
+            {% endif %}
+            <li class="list-inline-item"><a href="{{ SITEURL }}/{{ page.url }}">{{ page.title }}</a></li>
+          {% endfor %}
+        {% endif %}
+        {% for icon, link in ICONS %}
+          {% if (LINKS or (DISPLAY_PAGES_ON_MENU and pages)) and loop.first %}
+            <li class=" list-inline-item text-muted">|</li>
+          {% endif %}
+          <li class="list-inline-item"><a class="fa fa-{{ icon }}" href="{{ link }}" target="_blank"></a></li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+  <div class="col-sm-4">
+	<p>
+      <form class="navbar-search" action="{{ SITEURL }}/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="" name="q" id="tipue_search_input"><input type="submit" value="Търси"></form>
+	 </p>
+    </div>
+  </div>
+   </div>
+	<div class="menu">
+	<div class="container">
+	<div class="col-sm-12">
+	<ul class="list-inline">
+	{% for category, articles in categories|sort %}
+      
+        <li class="list-inline-item"><a href="{{ SITEURL }}/{{ category.url }}">{{ category }}</a></li>
+ 
+	{% endfor %}
+	<li class="list-inline-item">
+	
+	</li>
+	</ul>
+
+
+	</div>
+	</div>
+	</div>

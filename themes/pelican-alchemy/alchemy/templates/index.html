@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block head %}
+  {{ super() }}
+  {% if DESCRIPTION %}
+    <meta name="description" content="{{ DESCRIPTION|striptags }}">
+  {% endif %}
+{% endblock %}
+
+{% block title %}
+  {{ SITENAME }} | {{ SITESUBTITLE }}
+{% endblock %}
+
+{% block page_header %}
+  Последно добавени вицове
+{% endblock %}
+
+{% block content %}
+  {% for article in articles_page.object_list %}
+    <article class="row teaser">
+      <header class="col-sm-2 text-muted">
+        <ul>
+          {% if not HIDE_AUTHORS and article.authors %}
+            <li>
+              <i class="fa fa-user-o"></i>
+              {% for author in article.authors %}
+                <a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>{% if not loop.last %}, {% endif %}
+              {% endfor %}
+            </li>
+          {% endif %}
+        </ul>
+      </header>
+      <div class="col-sm-12">
+        <h4 class="title">
+          <a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a>
+        </h4>
+		<ul class="list-inline">
+		<li class="list-inline-item">
+		<i class="fa fa-folder-open-o"></i>
+            <a href="{{ SITEURL }}/{{ article.category.url }}">{{ article.category }}</a>
+		 </li>	
+        {% if article.tags %}
+		
+          <li class="list-inline-item">
+            <i class="fa fa-files-o"></i>
+            {% for tag in article.tags %}
+              <a href="{{ SITEURL }}/{{ tag.url }}">#{{ tag }}</a>{% if not loop.last %}, {% endif %}
+            {% endfor %}
+          </li>
+		  
+        {% endif %}
+		</ul>
+		
+        <div class="content">
+          {{ article.summary|striptags }}
+        </div>
+      </div>
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+  {% include 'include/pagination.html' %}
+{% endblock %}

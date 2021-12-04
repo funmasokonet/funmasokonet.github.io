@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block head %}
+  {{ super() }}
+  <meta name="description" content="{{ article.summary|striptags }}">
+  
+	<!-- Open Graph data -->
+	<meta property="og:title" content="{{ article.title }}" />
+	<meta property="og:type" content="article" />
+	<meta property="og:url" content="{{ SITEURL }}/{{ output_file }}" />
+	<meta property="og:image" content="{{ SITEURL }}{{ article.image }}" />
+	<meta property="og:description" content="{{ article.summary|striptags }}" />  
+  
+{% endblock %}
+
+{% block title %}
+  {{ article.title|striptags }} {{ super() }}
+{% endblock %}
+
+{% block page_header %}
+  {{ article.title }}
+{% endblock %}
+
+{% block content %}
+  <article class="article">
+    <header>
+      <ul class="list-inline">
+        <li class="list-inline-item text-muted" title="{{ article.date.isoformat() }}">
+          <i class="fa fa-clock-o"></i>
+          {{ article.locale_date }}
+        </li>
+        <li class="list-inline-item">
+          <i class="fa fa-folder-open-o"></i>
+          <a href="{{ SITEURL }}/{{ article.category.url }}">{{ article.category }}</a>
+        </li>
+        {% if not HIDE_AUTHORS and article.authors %}
+          <li class="list-inline-item">
+            <i class="fa fa-user-o"></i>
+            {% for author in article.authors %}
+              <a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>{% if not loop.last %}, {% endif %}
+            {% endfor %}
+          </li>
+        {% endif %}
+        {% if article.tags %}
+          <li class="list-inline-item">
+            <i class="fa fa-files-o"></i>
+            {% for tag in article.tags %}
+              <a href="{{ SITEURL }}/{{ tag.url }}">#{{ tag }}</a>{% if not loop.last %}, {% endif %}
+            {% endfor %}
+          </li>
+        {% endif %}
+      </ul>
+    </header>
+    <div class="content">
+	  {% if article.image %}
+		<img src ="{{ article.image }}" alt="{{ article.title }}" style="float:left;margin-right:30px;margin-top:8px;margin-bottom:10px;">
+	  {% endif %}
+	   
+      {{ article.content }}
+	  <div style="clear: left;"></div>
+
+	  {% if article.screenshot %}
+	  <br>
+	  <h3>{{ article.title }} Screen Shot</h3>
+		<img src ="{{ article.screenshot }}" class="img-fluid" style="max-width: 100%; height: auto; display: block; "><br><br>
+	  {% endif %}	 
+	 
+	  	  <div class="row">
+		  <br>
+        {% if article.pros %}
+		<br>
+		<div class="col-sm-6">
+		 <h3> Pros </h3>
+          <li class="list-inline-item">           
+            {% for pros in article.pros | split %}
+				<i class="fa fa-plus pros"></i>&nbsp;&nbsp;
+              {{ pros }} <br > {% if not loop.last %} {% endif %}
+            {% endfor %}
+          </li>
+
+		  </div>
+		 <p>  </p>
+        {% endif %}
+		
+		
+        {% if article.cons %}
+		<br>
+		<div class="col-sm-6">
+		 <h3> Cons </h3>
+          <li class="list-inline-item">           
+            {% for cons in article.cons | split %}
+				<i class="fa fa-minus cons"></i>&nbsp;&nbsp;
+              {{ cons }} <br > {% if not loop.last %} {% endif %}
+            {% endfor %}
+          </li>
+ 
+		  </div>
+		  <br>
+        {% endif %}		  
+	  </div>
+	  <p></p>
+	  {% if article.appurl %}
+		 <a class="btn btn-primary" rel="nofollow" style="text-decoration: none" href ="{{ article.appurl }}" target="_blank"><i class="fa fa-home"></i>  {{ article.title }} Home Page</a> <br><br>
+	  {% endif %}
+	  {% if article.download %}
+		<a class="btn btn-warning" rel="nofollow" style="text-decoration: none" href ="{{ article.download }}" target="_blank"><i class="fa fa-download"></i> Download {{ article.title }}</a><br><br>
+	  {% endif %}	  
+      {% if article.portable %}
+		<a class="btn btn-danger" rel="nofollow" style="text-decoration: none" href ="{{ article.portable }}" target="_blank"><i class="fa fa-suitcase"></i> {{ article.title }} Portable Version</a><br><br>
+	  {% endif %}	
+	  {% if article.screenshots %}
+		<a class="btn btn-success" rel="nofollow" style="text-decoration: none" href ="{{ article.screenshots }}" target="_blank"><i class="fa fa-camera"></i> {{ article.title }} Screen Shots</a><br><br>
+	  {% endif %}		  
+
+
+    </div>
+  </article>
+  {% include 'include/comments.html' %}
+{% endblock %}

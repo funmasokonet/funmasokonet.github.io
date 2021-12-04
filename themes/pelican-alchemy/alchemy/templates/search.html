@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}{{ SITENAME }} Search {% endblock %}
+{% block page_header %}Search results{% endblock %}
+{% block content %}
+
+<div class="entry-content">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js">
+    </script>
+    <script type="text/javascript" src="{{ SITEURL }}/theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="{{ SITEURL }}/theme/tipuesearch/tipuesearch.min.js"></script>
+        <script>
+            $(document).ready(function() {
+            $('#tipue_search_input').tipuesearch({
+                'show': 8,
+                'mode': 'json',
+                'contentLocation': '{{ SITEURL }}/tipuesearch_content.json'
+                });
+            });
+        </script>
+
+    <div id="tipue_search_content"></div>
+</div>
+{% endblock %}

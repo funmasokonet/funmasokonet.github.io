@@ -1,0 +1,18 @@
+<div class="headf">
+
+    {% if not HIDE_AUTHORS %}
+    <a href="{{ SITEURL }}/authors.html">Authors</a> &nbsp;
+    {% endif %}
+    <a href="{{ SITEURL }}/archives.html">Архиви</a> &nbsp;
+    <a href="{{ SITEURL }}/categories.html">Катеории</a> &nbsp;
+    {% if tags|length %}
+    <a href="{{ SITEURL }}/tags.html">Тагове</a> &nbsp;
+    {% endif %}
+
+  
+  
+{% set i = all_articles|count %}
+{% if i > 0 %}
+Общо {{ i }} вица.
+{% endif %}
+</div>
