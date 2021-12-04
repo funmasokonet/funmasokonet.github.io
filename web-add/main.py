@@ -8,7 +8,7 @@ from datetime import datetime
 from subprocess import call
 from transliterate import translit, get_available_language_codes
 
-publish_location = "/home/pi/sites/fun/content/posts/web-admin/"
+publish_location = "/home/pi/git/funmasokonet.github.io/content/posts/web-admin/"
 app = Flask(__name__)
 
 # Flask-WTF requires an encryption key - the string can be anything
@@ -45,7 +45,7 @@ def index():
 
 		with open(publish_location + translit(form.title.data.capitalize(), 'ru', reversed=True).replace(' ', '-').lower() + ".md" ,"w+") as f:
 			f.writelines("\n".join(message))
-		rc = call("/home/pi/sites/fun/update.sh", shell=True)
+		rc = call("/home/git/funmasokonet.github.io/update.sh", shell=True)
 		message_html = "<br />".join(message)
 
 	return render_template('index.html', form=form, message=Markup(message_html))
