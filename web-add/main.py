@@ -45,7 +45,7 @@ def index():
 
 		with open(publish_location + translit(form.title.data.capitalize(), 'ru', reversed=True).replace(' ', '-').lower() + ".md" ,"w+") as f:
 			f.writelines("\n".join(message))
-		rc = call("/home/git/funmasokonet.github.io/update.sh", shell=True)
+		rc = call("/home/pi/git/funmasokonet.github.io/update.sh", shell=True)
 		message_html = "<br />".join(message)
 
 	return render_template('index.html', form=form, message=Markup(message_html))
