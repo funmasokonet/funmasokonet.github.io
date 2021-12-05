@@ -1,28 +1,42 @@
 import os
+import re
 import random
 from fnmatch import fnmatch
 from flask import Flask, jsonify
 
 # configuration variables for pulling the jokes from the site
-content_folder = os.getcwd().replace("api","content/posts")
+content_folder = os.getcwd().replace("api", "content/posts")
 pattern = "*.md"
 
 app = Flask(__name__)
+
 
 @app.route("/")
 def just_joke():
     return get_random_joke().text
 
+
+@app.route("/update")
+def update():
+    update_jokes_list()
+    return "Jokes DB updated\n"
+
+
 @app.route("/html")
 def json_joke():
     return "<br />".join(get_random_joke().text.split("\n"))
+
 
 @app.route("/category/", defaults={'cat_en': None})
 @app.route("/category/<cat_en>")
 def category_joke(cat_en):
     if cat_en == None:
-        return str(categories)
+        cat = []
+        for c in categories:
+            cat.append(c["en"])
+        return " Налични категории " + ", ".join(cat) + "\n"
     return filter_by_category(cat_en)
+
 
 class joke:
     def __init__(self, text, category):
@@ -31,8 +45,9 @@ class joke:
 
 
 jokes = []
-categories = [{'bg': "футбол", 'en': "football"}, {'bg': "работа", 'en': "work"}, {'bg': "разни", 'en': "others"}, {'bg': "семейни", 'en': "family"}, {'bg': "училище", 'en': "school"}, {'bg': "за иванчо", 'en': "ivancho"}, {'bg': "за големи", 'en': "nsfw"}]
-
+categories = [{'bg': "футбол", 'en': "football"}, {'bg': "работа", 'en': "work"}, {'bg': "разни", 'en': "others"},
+              {'bg': "семейни", 'en': "family"}, {'bg': "училище", 'en': "school"},
+              {'bg': "за иванчо", 'en': "ivancho"}, {'bg': "за големи", 'en': "nsfw"}]
 
 
 def get_file_names(folder, mask):
@@ -53,7 +68,7 @@ def get_jokes(joke_files):
             for line in lines:
                 if "Category:" in line:
                     joke_cat = line.split(":")[1].strip()
-                elif ("Title:" in line) or ("Date:" in line) or ("Tags:" in line) or (line.strip() == "") or (line == "\n"):
+                elif ("Title:" in line) or ("Date:" in line) or ("Tags:" in line) or (line.strip() == "") or (re.match(r'^\s*$', line)):
                     pass
                 else:
                     joke_text.append(line)
@@ -61,24 +76,28 @@ def get_jokes(joke_files):
             jokes.append(joke(text, joke_cat))
     return jokes
 
+
 def filter_by_category(category):
     try:
         bg_category = list(filter(lambda cat: cat['en'] == category, categories))[0]['bg']
     except IndexError as error:
-        return "Category not found!",404
+        return " Няма такава категория!", 404
     category_jokes = []
     for joke in jokes:
         if joke.category.lower() == bg_category.lower():
             category_jokes.append(joke.text)
     return random.choice(category_jokes)
 
+
 def get_random_joke():
     return random.choice(jokes)
+
 
 def update_jokes_list():
     joke_files_list = get_file_names(content_folder, pattern)
     global jokes
     jokes = get_jokes(joke_files_list)
+
 
 if __name__ == "__main__":
     update_jokes_list()
