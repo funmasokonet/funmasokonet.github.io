@@ -116,6 +116,7 @@ def get_random_joke():
 def update_jokes_list():
     joke_files_list = get_file_names(content_folder, pattern)
     global jokes
+    jokes = []
     jokes = get_jokes(joke_files_list)
 
 def human_format(num):
