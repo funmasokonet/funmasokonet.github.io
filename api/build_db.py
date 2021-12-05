@@ -67,17 +67,19 @@ def filter_by_category(category):
     except IndexError as error:
         return "Category not found!",404
     category_jokes = []
-    joke_files_list = get_file_names(content_folder, pattern)
-    jokes = get_jokes(joke_files_list)
     for joke in jokes:
         if joke.category.lower() == bg_category.lower():
             category_jokes.append(joke.text)
     return random.choice(category_jokes)
 
 def get_random_joke():
-    joke_files_list = get_file_names(content_folder, pattern)
-    jokes = get_jokes(joke_files_list)
     return random.choice(jokes)
 
+def update_jokes_list():
+    joke_files_list = get_file_names(content_folder, pattern)
+    global jokes
+    jokes = get_jokes(joke_files_list)
+
 if __name__ == "__main__":
+    update_jokes_list()
     app.run(host='0.0.0.0', port=8888)
