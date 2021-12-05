@@ -13,9 +13,9 @@ app = Flask(__name__)
 def just_joke():
     return get_random_joke().joketext
 
-@app.route("/json")
+@app.route("/html")
 def json_joke():
-    return get_random_joke().joketext
+    return "<br />".join(get_random_joke().joketext.split("\n"))
 
 class joke:
     def __init__(self, joketext, category):
