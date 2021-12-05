@@ -14,6 +14,10 @@ categories = [{'bg': "футбол", 'en': "football"}, {'bg': "работа", '
 app = Flask(__name__)
 hits = 0
 
+@app.routne("/loaderio-aabdddedc48fc87800a33787c071d90b.txt")
+def txt():
+    return "loaderio-aabdddedc48fc87800a33787c071d90b"
+
 @app.route("/")
 def just_joke():
     global hits
