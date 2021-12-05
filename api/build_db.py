@@ -21,10 +21,10 @@ def just_joke():
     return get_random_joke().text
 
 
-@app.route("/count")
-@app.route("/count/")
+@app.route("/info")
+@app.route("/info/")
 def count_jokes():
-    return "{}  вица в нашата база. \n{} hits.\n".format(len(jokes), hits)
+    return "api.masoko.net\nPowered by fun.masoko.net\n{} вица.\n{} hits.\n".format(len(jokes), hits)
 
 
 @app.route("/update")
