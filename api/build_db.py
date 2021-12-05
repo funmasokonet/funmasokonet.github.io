@@ -17,6 +17,10 @@ def just_joke():
 def json_joke():
     return "<br />".join(get_random_joke().joketext.split("\n"))
 
+@app.route('/category/<cat>')
+def category_joke(cat):
+    return "welcome to profile page %s" % cat
+
 class joke:
     def __init__(self, joketext, category):
         self.joketext = joketext
@@ -24,7 +28,9 @@ class joke:
 
 
 jokes = []
+categories = [{'bg': "футбол", 'en': "football"}, {'bg': "работа", 'en': "work"}, {'bg': "разни", 'en': "others"}, {'bg': "семейни", 'en': "family"}, {'bg': "училище", 'en': "school"}, {'bg': "за иванчо", 'en': "ivancho"}, {'bg': "за големи", 'en': "nsfw"}]
 
+# print(list(filter(lambda cat: cat['en'] == 'football', categories))[0]['bg'])
 
 def get_file_names(folder, mask):
     joke_files = []
