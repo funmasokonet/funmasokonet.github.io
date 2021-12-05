@@ -58,3 +58,6 @@ def get_random_joke():
     return random.choice(jokes)
 
 # print(get_random_joke().joketext)
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=8800)
