@@ -15,6 +15,9 @@ app = Flask(__name__)
 def just_joke():
     return get_random_joke().text
 
+@app.route("/count")
+def count_jokes():
+    return "{}  вица в нашата база. \n".format(len(jokes))
 
 @app.route("/update")
 def update():
