@@ -11,20 +11,22 @@ app = Flask(__name__)
 
 @app.route("/")
 def just_joke():
-    return get_random_joke().joketext
+    return get_random_joke().text
 
 @app.route("/html")
 def json_joke():
-    return "<br />".join(get_random_joke().joketext.split("\n"))
+    return "<br />".join(get_random_joke().text.split("\n"))
 
-@app.route('/category/<caten>')
-def category_joke(caten):
-
-    return "welcome to profile page %s" % print(filter_by_category(caten))
+@app.route("/category/", defaults={'cat_en': None})
+@app.route("/category/<cat_en>")
+def category_joke(cat_en):
+    if cat_en == None:
+        return str(categories)
+    return filter_by_category(cat_en)
 
 class joke:
-    def __init__(self, joketext, category):
-        self.joketext = joketext
+    def __init__(self, text, category):
+        self.text = text
         self.category = category
 
 
@@ -60,8 +62,17 @@ def get_jokes(joke_files):
     return jokes
 
 def filter_by_category(category):
-    print(list(filter(lambda cat: cat['en'] == category, categories))[0]['bg'])
-    return list(filter(lambda cat: cat['en'] == category, categories))[0]['bg']
+    try:
+        bg_category = list(filter(lambda cat: cat['en'] == category, categories))[0]['bg']
+    except IndexError as error:
+        return "Category not found!",404
+    category_jokes = []
+    joke_files_list = get_file_names(content_folder, pattern)
+    jokes = get_jokes(joke_files_list)
+    for joke in jokes:
+        if joke.category.lower() == bg_category.lower():
+            category_jokes.append(joke.text)
+    return random.choice(category_jokes)
 
 def get_random_joke():
     joke_files_list = get_file_names(content_folder, pattern)
