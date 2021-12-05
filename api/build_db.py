@@ -19,7 +19,8 @@ def json_joke():
 
 @app.route('/category/<caten>')
 def category_joke(caten):
-    return "welcome to profile page %s" % print(list(filter(lambda cat: cat['en'] == caten, categories))[0]['bg'])
+
+    return "welcome to profile page %s" % print(filter_by_category(caten))
 
 class joke:
     def __init__(self, joketext, category):
@@ -57,9 +58,10 @@ def get_jokes(joke_files):
             text = "".join(joke_text).replace("&minus;", "-")
             jokes.append(joke(text, joke_cat))
     return jokes
+
 def filter_by_category(category):
     print(list(filter(lambda cat: cat['en'] == category, categories))[0]['bg'])
-    return ist(filter(lambda cat: cat['en'] == category, categories))[0]['bg']
+    return list(filter(lambda cat: cat['en'] == category, categories))[0]['bg']
 
 def get_random_joke():
     joke_files_list = get_file_names(content_folder, pattern)
