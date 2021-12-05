@@ -53,11 +53,11 @@ def get_jokes(joke_files):
             for line in lines:
                 if "Category:" in line:
                     joke_cat = line.split(":")[1].strip()
-                elif ("Title:" in line) or ("Date:" in line) or ("Tags:" in line) or (line.strip() == ""):
+                elif ("Title:" in line) or ("Date:" in line) or ("Tags:" in line) or (line.strip() == "") or (line == "\n"):
                     pass
                 else:
                     joke_text.append(line)
-            text = "".join(joke_text).replace("&minus;", "-")
+            text = "".join(joke_text).replace("&minus;", "-") + "\n"
             jokes.append(joke(text, joke_cat))
     return jokes
 
