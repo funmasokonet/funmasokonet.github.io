@@ -25,19 +25,24 @@ def update():
     return "Jokes DB updated\n"
 
 
+@app.route("/html/")
 @app.route("/html")
 def json_joke():
     return "<br />".join(get_random_joke().text.split("\n"))
 
 
-@app.route("/category/", defaults={'cat_en': None})
-@app.route("/category/<cat_en>")
-def category_joke(cat_en):
+@app.route("/category/", defaults={'cat_en': None, 'html':False})
+@app.route("/<html>/category/", defaults={'cat_en': None})
+@app.route("/category/<cat_en>", defaults={ 'html':False})
+@app.route("/<html>/category/<cat_en>")
+def category_joke(html,cat_en):
     if cat_en == None:
         cat = []
         for c in categories:
             cat.append(c["en"])
         return " Налични категории " + ", ".join(cat) + "\n"
+    elif html == 'html':
+        return "<br />".join(filter_by_category(cat_en).split("\n"))
     return filter_by_category(cat_en)
 
 
