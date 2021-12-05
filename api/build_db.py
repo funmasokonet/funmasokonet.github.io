@@ -1,10 +1,21 @@
 import os
 import random
 from fnmatch import fnmatch
+from flask import Flask, jsonify
 
+# configuration variables for pulling the jokes from the site
 content_folder = "/home/masoko/git/funmasokonet.github.io/content/posts"
 pattern = "*.md"
 
+app = Flask(__name__)
+
+@app.route("/")
+def just_joke():
+    return get_random_joke().joketext
+
+@app.route("/json")
+def json_joke():
+    return get_random_joke().joketext
 
 class joke:
     def __init__(self, joketext, category):
@@ -41,9 +52,9 @@ def get_jokes(joke_files):
             jokes.append(joke(text, joke_cat))
     return jokes
 
+def get_random_joke():
+    joke_files_list = get_file_names(content_folder, pattern)
+    jokes = get_jokes(joke_files_list)
+    return random.choice(jokes)
 
-joke_files_list = get_file_names(content_folder, pattern)
-jokes = get_jokes(joke_files_list)
-random_joke = random.choice(jokes)
-
-print(random_joke.joketext)
+# print(get_random_joke().joketext)
