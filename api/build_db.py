@@ -2,7 +2,7 @@ import os
 import re
 import random
 from fnmatch import fnmatch
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 
 # configuration variables for pulling the jokes from the site
 content_folder = os.getcwd().replace("api", "content/posts")
@@ -24,6 +24,9 @@ def just_joke():
     hits += 1
     return get_random_joke().text
 
+@app.route("/myip", methods=["GET"])
+def get_my_ip():
+    return jsonify({'ip': request.remote_addr}), 200
 
 @app.route("/info")
 @app.route("/info/")
