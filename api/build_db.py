@@ -24,10 +24,6 @@ def just_joke():
     hits += 1
     return get_random_joke().text
 
-@app.route("/myip", methods=["GET"])
-def get_my_ip():
-    ip = request.access_route
-    return jsonify({'ip': ip}), 200
 
 @app.route("/info")
 @app.route("/info/")
