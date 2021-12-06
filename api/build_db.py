@@ -27,7 +27,7 @@ def just_joke():
 @app.route("/myip", methods=["GET"])
 def get_my_ip():
     if request.headers.getlist("X-Forwarded-For"):
-      ip = request.headers.getlist("X-Forwarded-For")[0]
+      ip = request.headers.getlist("X-Forwarded-For")
     else:
       ip = request.remote_addr
     return jsonify({'ip': ip}), 200
