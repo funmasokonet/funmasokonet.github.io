@@ -92,6 +92,7 @@ def get_jokes(joke_files):
                     pass
                 else:
                     joke_text.append(line)
+            joke_text[-1] = joke_text[-1].strip()
             text = "".join(joke_text).replace("&minus;", "-") + "\n"
             jokes.append(joke(text, joke_cat))
     return jokes
