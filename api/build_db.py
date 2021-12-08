@@ -57,7 +57,7 @@ def category_joke(html, cat_en):
         cat = []
         for c in categories:
             cat.append(c["en"])
-        return " Налични категории " + ", ".join(cat) + "\n"
+        return "Налични категории " + ", ".join(cat) + "\n"
     elif html == 'html':
         return "<br />".join(filter_by_category(cat_en).split("\n"))
     return filter_by_category(cat_en)
