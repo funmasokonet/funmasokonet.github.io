@@ -14,4 +14,5 @@ git add -A .
 git commit -a -m "$msg"
 git push origin gh-pages
 cd ..
+curl http://api.masoko.net/update/
 echo -----------------  done
