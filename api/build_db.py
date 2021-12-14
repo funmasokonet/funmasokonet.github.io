@@ -1,8 +1,11 @@
 import os
 import re
 import random
+from googletrans import Translator
 from fnmatch import fnmatch
 from flask import Flask, jsonify, request
+
+translator = Translator()
 
 # configuration variables for pulling the jokes from the site
 content_folder = os.getcwd().replace("api", "content/posts")
@@ -24,6 +27,14 @@ def just_joke():
     hits += 1
     return get_random_joke().text
 
+@app.route("/<lang>/")
+def translate_joke(lang):
+    
+    global hits
+    hits += 1
+    result = translator.translate(get_random_joke().text, src='bg', dest=lang)
+    print(result.text)
+    return result.text
 
 @app.route("/info")
 @app.route("/info/")
