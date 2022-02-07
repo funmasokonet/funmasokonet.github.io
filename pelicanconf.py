@@ -37,7 +37,7 @@ SITEIMAGE = '/images/logo.png'
 DEFAULT_PAGINATION = 10
 PLUGIN_PATHS = ["plugins", "/home/pi/sites/pelican-plugins/pelican-plugins"]
 PLUGINS = ['neighbors', 'metadataparsing', 'tipue_search']
-THEME = '/home/pi/sites/fun/themes/pelican-alchemy/alchemy'
+THEME = '/home/pi/git/funmasokonet.github.io/themes/pelican-alchemy'
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
 PAGE_SAVE_AS = '{slug}.html'
