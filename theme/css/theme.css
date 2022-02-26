@@ -177,6 +177,7 @@ hr {
 @media (min-width: 576px) {
   .header .title {
     font-size: 3rem;
+    font-family: 'Caveat', cursive;
   }
 }
 
