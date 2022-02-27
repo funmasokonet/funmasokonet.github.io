@@ -63,15 +63,15 @@ hr {
   opacity: 1;
   visibility: visible;
 }
-.headf{	
+.headf {	
 	padding-top: 0.4rem;
 	padding-bottom: 0.5rem;
 	margin-bottom: 0rem;
 }
 
-.pros {	color: green; }
+.pros { color: green; }
 
-.cons {color: red;}
+.cons { color: red;}
 /* ------------------------------------------------------------------------- */
 .col-sm-5 {  float: right;  margin-top :  10px ;  }
 
