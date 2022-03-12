@@ -10,7 +10,9 @@
 {% block title %}
   {{ SITENAME }} | {{ SITESUBTITLE }}
 {% endblock %}
-
+{% block joke heaer %}
+  Случаен виц
+{% endblock %}
 {% block page_header %}
   Последно добавени вицове
 {% endblock %}
@@ -61,4 +63,5 @@
     {% endif %}
   {% endfor %}
   {% include 'include/pagination.html' %}
+  
 {% endblock %}
