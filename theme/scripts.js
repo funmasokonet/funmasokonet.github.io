@@ -8,7 +8,7 @@ const app = new Vue({
         fetchAPIData() {
 
                         this.responseAvailable = false;
-                        fetch("http://api.masoko.net/json", {
+                        fetch("https://api.masoko.net/json", {
                             "method": "GET"
                         })
                         .then(response => {
