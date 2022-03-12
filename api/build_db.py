@@ -4,6 +4,9 @@ import random
 from googletrans import Translator
 from fnmatch import fnmatch
 from flask import Flask, jsonify, request
+from flask_cors import CORS
+from flask import jsonify
+
 
 translator = Translator()
 
@@ -15,6 +18,7 @@ categories = [{'bg': "футбол", 'en': "football"}, {'bg': "работа", '
               {'bg': "семейни", 'en': "family"}, {'bg': "училище", 'en': "school"},
               {'bg': "за иванчо", 'en': "ivancho"}, {'bg': "за големи", 'en': "nsfw"}]
 app = Flask(__name__)
+CORS(app)
 hits = 0
 
 @app.route("/loaderio-aabdddedc48fc87800a33787c071d90b.txt")
@@ -26,6 +30,16 @@ def just_joke():
     global hits
     hits += 1
     return get_random_joke().text
+
+@app.route("/json")
+@app.route("/json/")
+def json_joke():
+    global hits
+    hits += 1
+    response = {
+		  "body": "<br />".join(get_random_joke().text.split("\n"))
+		}
+    return jsonify(response)
 
 @app.route("/<lang>/")
 def translate_joke(lang):
@@ -51,7 +65,7 @@ def update():
 
 @app.route("/html/")
 @app.route("/html")
-def json_joke():
+def html_joke():
     global hits
     hits += 1
     return "<br />".join(get_random_joke().text.split("\n"))
