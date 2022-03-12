@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block joke %}
-  
+  <p><span v-html="result"></span></p>
 {% endblock %}
 
 {% block page_header %}
@@ -66,5 +66,5 @@
   {% endfor %}
   {% include 'include/pagination.html' %}
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
-<script src = "scripts.js"></script>
+<script src = "/theme/scripts.js"></script>
 {% endblock %}
