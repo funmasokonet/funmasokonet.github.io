@@ -41,6 +41,13 @@ def json_joke():
 		}
     return jsonify(response)
 
+
+@app.route("/info")
+@app.route("/info/")
+def count_jokes():
+    return "api.masoko.net\nPowered by fun.masoko.net\n{} вица.\n{} hits.\n".format(len(jokes), human_format(hits))
+
+
 @app.route("/<lang>/")
 def translate_joke(lang):
     
@@ -49,12 +56,6 @@ def translate_joke(lang):
     result = translator.translate(get_random_joke().text, src='bg', dest=lang)
     print(result.text)
     return result.text
-
-@app.route("/info")
-@app.route("/info/")
-def count_jokes():
-    return "api.masoko.net\nPowered by fun.masoko.net\n{} вица.\n{} hits.\n".format(len(jokes), human_format(hits))
-
 
 @app.route("/update")
 @app.route("/update/")
