@@ -1,13 +1,13 @@
 <div class="container">
 <div class="row">
   {% if SITEIMAGE %}
-    <div class="col-sm-2">
+    <div class="col-sm-1">
       <a href="{{ SITEURL }}/">
         <img src={{ SITEURL }}{{ SITEIMAGE }} alt="{{ SITENAME }}">
       </a>
     </div>
   {% endif %}
-  <div class="col-sm-{% if SITEIMAGE %}7{% else %}12{% endif %}">
+  <div class="col-sm-11">
     <h1 class="title"><a href="{{ SITEURL }}/">{{ SITENAME }}</a></h1>
     {% if SITESUBTITLE %}
       <p class="text-muted">{{ SITESUBTITLE }}</p>
