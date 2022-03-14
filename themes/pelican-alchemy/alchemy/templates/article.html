@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base2.html" %}
 
 {% block head %}
   {{ super() }}
@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block title %}
-  {{ article.title|striptags }} {{ super() }}
+  {{ article.title|striptags }}
 {% endblock %}
 
 {% block page_header %}
