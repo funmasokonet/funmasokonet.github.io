@@ -43,7 +43,7 @@ THEME = '/home/pi/git/funmasokonet.github.io/themes/pelican-alchemy/alchemy'
 PAGE_SAVE_AS = '{slug}.html'
 PAGE_URL = '{slug}.html'
 ### Theme specific settings
-STATIC_PATHS = ['images', 'content']
+STATIC_PATHS = ['images']
 RESPONSIVE_IMAGES = True
 
 DIRECT_TEMPLATES = (('index', 'tags', 'categories', 'archives', 'search'))
